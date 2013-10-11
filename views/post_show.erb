@@ -7,5 +7,16 @@
 	<%= @post.body %>
 </div>
 
-<div><h4>Up Vote <%= @post.up_votes%></br>
+<div><h4>
+Up Vote <%= @post.up_votes%>
+</br>
 	Down Vote <%=@post.down_votes%></h4></div>
+
+
+<form action="/posts/<%=@post.id%>/upvote" method="post">
+<input type="submit" name="up_vote" value="up_vote" />
+</form>
+
+<form action="/posts/<%=@post.id%>/downvote" method="post">
+<input type="submit" name="down_vote" value="down_vote" />
+</form>
