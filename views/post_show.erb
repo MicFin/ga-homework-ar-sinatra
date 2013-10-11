@@ -2,10 +2,10 @@
 <%= @post.title %></h2></a> 
 <%= @post.created_at %>
 <div class="post-body">
-	<%= @post.link_url %>">
+	<%= @post.link_url %>
 	</br>
 	<%= @post.body %>
 </div>
 
-<div><h4>Up Vote <%= post.up_votes%></br>
-	Down Vote <%=post.down_votes%></h4></div>
+<div><h4>Up Vote <%= @post.up_votes%></br>
+	Down Vote <%=@post.down_votes%></h4></div>
