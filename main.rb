@@ -53,17 +53,18 @@ end
 
 # add a up vote
 post '/posts/:id/upvote' do 
-  # Post.update(params[:id], :up_votes=> (params[:up_votes].to_i+1)).save
-  upvoted = Post.find(params[:id])
-  upvoted[:up_votes] += 1
-  upvoted.save
+  Post.increment_counter(:up_votes, params[:id])
+  # upvotedd = Post.find(params[:id])
+  # upvoted[:up_votes] += 1
+  # upvoted.save
   redirect "/posts"
 end
 
-# add a down vote
+# add a down vote stay
 post '/posts/:id/downvote' do 
-  upvoted = Post.find(params[:id])
-  upvoted[:down_votes] += 1
-  upvoted.save
+  Post.increment_counter(:down_votes, params[:id])
+  # upvoted = Post.find(params[:id])
+  # upvoted[:down_votes] += 1
+  # upvoted.save
   redirect "/posts"
 end
