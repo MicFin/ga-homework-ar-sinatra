@@ -21,11 +21,16 @@ Up Vote <%= @post.up_votes%>
 <input type="submit" name="down_vote" value="down_vote" />
 </form>
 
-<a href='/posts/comment/new'>Create Comment</a>
 	
 	<% @post.comments.each do |comment|%>
 	Author: <%= comment.author%> 
 	</br><%= comment.body%>
 	</br></br>
 	<% end %>
+
+<form action="/posts/comment/<%=@post.id%>/create" method="post">
+	<div>Author: <input type="string" name="author" /></div>
+	<div>Body: <textarea name="body" cols="60" rows="10"></textarea></div>
+	<button type="submit">Create Comment</button>
+</form>
 

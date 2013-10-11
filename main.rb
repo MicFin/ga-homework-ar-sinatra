@@ -11,12 +11,12 @@ has_many :comments
 end
 
 class Comment < ActiveRecord::Base
+  belongs_to :post
 end
 
 # link for main page
 get '/posts' do
   @posts = Post.all
-  @comments = Comment.all
   erb :post_index
 end
 
@@ -56,8 +56,9 @@ end
 
 # action to create comment
 post '/posts/comment/:id/create' do
-  Comment.create(author: params[:author], body: params[:body], post_id: params[:id])
-  redirect "/posts"
+ @post = Post.find(params[:id])
+ @post.comments.create(author: params[:author], body: params[:body])
+  redirect "/posts/#{params[:id]}"
 end
 
 # action to update specific page
@@ -72,7 +73,7 @@ post '/posts/:id/upvote' do
   # upvotedd = Post.find(params[:id])
   # upvoted[:up_votes] += 1
   # upvoted.save
-  redirect "/posts"
+  redirect "/posts/#{params[:id]}"
 end
 
 # add a down vote stay
@@ -81,5 +82,5 @@ post '/posts/:id/downvote' do
   # upvoted = Post.find(params[:id])
   # upvoted[:down_votes] += 1
   # upvoted.save
-  redirect "/posts"
+  redirect "/posts/#{params[:id]}"
 end
