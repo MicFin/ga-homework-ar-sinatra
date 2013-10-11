@@ -7,11 +7,16 @@ require 'sinatra/activerecord'
 set :database, {adapter: 'postgresql', database: 'hacknews', host: 'localhost'}
 
 class Post < ActiveRecord::Base
+has_many :comments
+end
+
+class Comment < ActiveRecord::Base
 end
 
 # link for main page
 get '/posts' do
   @posts = Post.all
+  @comments = Comment.all
   erb :post_index
 end
 
@@ -32,6 +37,11 @@ get '/posts/new' do
   erb :post_new
 end
 
+# link for new post form
+get '/posts/comment/new' do
+  erb :comment_new
+end
+
 # link for individual posts
 get '/posts/:id' do
   @post = Post.find(params[:id])
@@ -44,6 +54,11 @@ post '/posts/create' do
   redirect "/posts"
 end
 
+# action to create comment
+post '/posts/comment/:id/create' do
+  Comment.create(author: params[:author], body: params[:body], post_id: params[:id])
+  redirect "/posts"
+end
 
 # action to update specific page
 post '/posts/:id/update' do
